@@ -90,6 +90,17 @@ class Modal extends Component {
                     );
                   })}
                 </tbody>
+                <tfoot>
+                  <td colSpan={5}></td>
+                  <td>Total Amount</td>
+                  <td>
+                    {this.props.gioHang
+                      .reduce((totalAmount, spGH, index) => {
+                        return (totalAmount += spGH.giaBan * spGH.soLuong);
+                      }, 0)
+                      .toLocaleString()}
+                  </td>
+                </tfoot>
               </table>
             </div>
             <div className="modal-footer">
@@ -124,14 +135,14 @@ const mapDispatchToProps = (dispatch) => {
 
       dispatch(action);
     },
-    tangGiamSoLuong : (maSP, isIncrease) => {
-        let action = {
-            type: 'FIX_QUANTITY',
-            maSP,
-            isIncrease
-        };
-        dispatch(action);
-    }
+    tangGiamSoLuong: (maSP, isIncrease) => {
+      let action = {
+        type: 'FIX_QUANTITY',
+        maSP,
+        isIncrease,
+      };
+      dispatch(action);
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
